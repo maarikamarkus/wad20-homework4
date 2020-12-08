@@ -25,7 +25,10 @@ router.get('/', authorize, (request, response) => {
 router.post('/', authorize,  (request, response) => {
 
     // Endpoint to create a new post
-
+    request.body.userId = request.currentUser.id;  
+    PostModel.create(request.body, (post) => {
+        response.json(post)
+    })
 });
 
 
