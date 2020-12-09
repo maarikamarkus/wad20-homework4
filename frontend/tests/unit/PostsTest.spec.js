@@ -96,11 +96,17 @@ jest.mock("axios", () => ({
     })
 }));
 
-describe('Posts', () => {
-
+// Test that exactly as many posts are rendered as contained in testData variable
+describe('Same number of posts (as in testData)', () => {
+    let postsInTestData = testData.length;
+    
     const wrapper = mount(Posts, {router, store, localVue});
 
-    it('1 == 1', function () {
-        expect(true).toBe(true)
+    it('count(real posts) == count(posts in testData)', function () {
+        // veider alternatiiv -> wrapper.vm.$data["posts"].length;
+        let actualPostCount = wrapper.findAll(".post").length 
+        expect(actualPostCount).toBe(postsInTestData)
     });
 });
+
+
