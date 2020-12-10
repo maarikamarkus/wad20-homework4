@@ -109,4 +109,31 @@ describe('Same number of posts (as in testData)', () => {
     });
 });
 
+// Test that if post has media property, image or video tags are rendered 
+// depending on media.type property, or if media property is absent nothing is rendered.
+describe('Media property rendered if applicable', () => {
+    const wrapper = mount(Posts, {router, store, localVue});
+    
+    for (let post in testData) {
+        if (post.media === null) {
+            it('should not render media', function () {
+                let media = wrapper.find('.post-image');
+                expect(media.exists()).toBe(false);
+            });
+        } else {
+            if (post.media === 'image') {
+                it('should render image', function () {
+                    let image = wrapper.find('.post-image img');
+                    expect(image.exists()).toBe(true);
+                });
+            } else if (post.media === 'video') {
+                it('should render video', function () {
+                    let video = wrapper.find('.post-image video');
+                    expect(video.exists()).toBe(true);
+                });
+            }
+        }
+    }
+});
+
 
