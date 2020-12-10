@@ -2,6 +2,7 @@ import {mount, createLocalVue} from '@vue/test-utils'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import Posts from "../../src/components/Posts.vue";
+import moment from 'moment'
 
 const localVue = createLocalVue();
 
@@ -136,4 +137,17 @@ describe('Media property rendered if applicable', () => {
     }
 });
 
+describe('Test that post create time is displayed in correct format(Saturday, December 5, 2020 1:53 PM', () => {
+    const wrapper = mount(Posts, {router, store, localVue});
+
+    for (let post in testData) {
+        const date = moment("2020-12-05 13:53:23").format('LLLL');
+        // const date = moment(post.createTime).format('LLLL');
+
+        it('should display date in correct format', function () {
+            let createTime = wrapper.find('.post-author > small');
+            expect(createTime.html()).toContain(date);
+        });
+    }
+});
 
