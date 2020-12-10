@@ -7,7 +7,7 @@
 
         </div>
         <div class="main-container">
-            <div class="post" v-for="post in posts" :key="post.id">
+            <div class="post" v-for="post in posts" :key="post.id" :id="'post-' + post.id">
                 <span class="post-author">
                     <span class="post-author-info">
                         <img :src="post.author.avatar" :alt="post.author | profileName"/>

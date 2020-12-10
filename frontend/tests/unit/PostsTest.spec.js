@@ -114,22 +114,23 @@ describe('Same number of posts (as in testData)', () => {
 // depending on media.type property, or if media property is absent nothing is rendered.
 describe('Media property rendered if applicable', () => {
     const wrapper = mount(Posts, {router, store, localVue});
-    
+
     for (const post of testData) {
+
         if (post.media === null) {
             it('should not render media', function () {
-                let media = wrapper.find('.post-image');
+                let media = wrapper.find('#post-' + post.id + ' .post-image');
                 expect(media.exists()).toBe(false);
             });
         } else {
             if (post.media.type === 'image') {
                 it('should render image', function () {
-                    let image = wrapper.find('.post-image img');
+                    let image = wrapper.find('#post-' + post.id + ' .post-image img');
                     expect(image.exists()).toBe(true);
                 });
             } else if (post.media.type === 'video') {
                 it('should render video', function () {
-                    let video = wrapper.find('.post-image video');
+                    let video = wrapper.find('#post-' + post.id + ' .post-image video');
                     expect(video.exists()).toBe(true);
                 });
             }
