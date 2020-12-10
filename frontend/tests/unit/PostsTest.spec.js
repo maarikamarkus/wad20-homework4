@@ -115,19 +115,19 @@ describe('Same number of posts (as in testData)', () => {
 describe('Media property rendered if applicable', () => {
     const wrapper = mount(Posts, {router, store, localVue});
     
-    for (let post in testData) {
+    for (const post of testData) {
         if (post.media === null) {
             it('should not render media', function () {
                 let media = wrapper.find('.post-image');
                 expect(media.exists()).toBe(false);
             });
         } else {
-            if (post.media === 'image') {
+            if (post.media.type === 'image') {
                 it('should render image', function () {
                     let image = wrapper.find('.post-image img');
                     expect(image.exists()).toBe(true);
                 });
-            } else if (post.media === 'video') {
+            } else if (post.media.type === 'video') {
                 it('should render video', function () {
                     let video = wrapper.find('.post-image video');
                     expect(video.exists()).toBe(true);
@@ -140,9 +140,8 @@ describe('Media property rendered if applicable', () => {
 describe('Test that post create time is displayed in correct format(Saturday, December 5, 2020 1:53 PM', () => {
     const wrapper = mount(Posts, {router, store, localVue});
 
-    for (let post in testData) {
-        const date = moment("2020-12-05 13:53:23").format('LLLL');
-        // const date = moment(post.createTime).format('LLLL');
+    for (const post of testData) {
+        const date = moment(post.createTime).format('LLLL');
 
         it('should display date in correct format', function () {
             let createTime = wrapper.find('.post-author > small');
